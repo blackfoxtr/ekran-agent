@@ -1,0 +1,20 @@
+{
+    "name": "blackfoxtr/ekran-agent",
+    "description": "Simple server monitoring agent for Ekran Server Monitor",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Blackfoxtr\\EkranAgent\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gökhan SARIGÜL",
+            "email": "gsarigul@cizgirentacar.com.tr"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}

@@ -12,9 +12,16 @@ class LinuxAgent implements Agent {
   ];
 
   public function CPU(){
-    exec("uptime", $command);
-    $stats = explode(',', explode('load average:', $command[0])[1]);
-    return $stats;
+    exec("uptime", $load);
+    exec("uptime -p", $uptime);
+    exec("uptime -s", $upsince);
+    // print_r($command);
+    // $stats = explode(',', explode('load average:', $command[0])[1]);
+    return [
+      'load' => explode(',', explode('load average:', $load[0])[1]),
+      'uptime' => $uptime[0],
+      'upsince' => $upsince[0],
+    ];
   }
 
   public function Memory(){
@@ -53,5 +60,16 @@ class LinuxAgent implements Agent {
     return $stats;
   }
 
+  public function getStats(){
+    $cpu = $this->CPU();
+    $memory = $this->Memory();
+    $disk = $this->Disk();
+    return [
+      'cpu' => $this->CPU(),
+      'memory' => $this->Memory(),
+      'disk' => $this->Disk(),
+      'services' => $this->Services()
+    ];
+  }
 
 }

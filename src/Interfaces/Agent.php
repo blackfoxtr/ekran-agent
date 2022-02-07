@@ -7,5 +7,5 @@ interface Agent {
   public function Memory();
   public function Disk();
   public function Services();
-
+  public function getStats();
 }

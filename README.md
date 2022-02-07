@@ -1,10 +1,10 @@
 ## Ekran agent
 
-Ekran is a simple server monitoring agent for your linux servers.
+Ekran is a simple server monitoring agent for your servers.
 ### TODO
 - [x] Linux agent
 - [ ] Windows agent
-- [ ] Add database options
+- [ ] Add database options for historical tracking.
 - [ ] Additional tracking options
 
 ### Requirements
@@ -20,6 +20,5 @@ Ekran is a simple server monitoring agent for your linux servers.
 
 > Service names should be separated with colon (`:`)
 ### GUI
-
 Please check GUI for a frontend
 

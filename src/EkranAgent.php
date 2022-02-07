@@ -8,7 +8,7 @@ class EkranAgent {
   
   public $agent;
   public $database;
-  
+
   public function __construct(){
     // If it's a Linux based OS
     if(PHP_OS == 'Linux'){
@@ -53,7 +53,11 @@ class EkranAgent {
     if($data == null){
       $data = $this->stats();
     }
-    $this->database->store($data);
+    $toStore = [
+      'server_name' => $_ENV['SERVER_NAME'],
+      'data' => $data,
+    ];
+    $this->database->store($toStore);
     return true;
   }
   

@@ -12,11 +12,14 @@ class LinuxAgent implements Agent {
   ];
 
   public function CPU(){
+    // TODO: TO check if possible data can be fetched by one command only
+    // We need CPU loads
     exec("uptime", $load);
+    // Human readable uptime format.
     exec("uptime -p", $uptime);
+    // Last reboot date. 
     exec("uptime -s", $upsince);
-    // print_r($command);
-    // $stats = explode(',', explode('load average:', $command[0])[1]);
+
     return [
       'load' => explode(',', explode('load average:', $load[0])[1]),
       'uptime' => $uptime[0],
@@ -41,8 +44,10 @@ class LinuxAgent implements Agent {
     $parts = explode(':', $_ENV['PARTITIONS']);
     $usage = [];
     foreach($parts as $p){
-      $free = disk_free_space($p);
-      $usage[$p] = $free;
+      $usage[$p] = [
+        'total' => disk_total_space($p),
+        'free' => disk_free_space($p)
+      ];
     }
     return $usage;
   }
@@ -61,9 +66,6 @@ class LinuxAgent implements Agent {
   }
 
   public function getStats(){
-    $cpu = $this->CPU();
-    $memory = $this->Memory();
-    $disk = $this->Disk();
     return [
       'cpu' => $this->CPU(),
       'memory' => $this->Memory(),

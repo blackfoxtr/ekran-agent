@@ -8,7 +8,7 @@ class LinuxAgent implements Agent {
   public $memkeys = [
     'total' => 1,
     'used' => 2,
-    'free' => 3
+    'free' => 6
   ];
 
   public function CPU(){
@@ -27,6 +27,11 @@ class LinuxAgent implements Agent {
     ];
   }
 
+  /**
+   * Get current memory stats
+   *
+   * @return Array
+   */
   public function Memory(){
     exec("free", $command);
     $mem = explode("-", preg_replace("~\s{1,}~", "-",$command[1]));
@@ -37,6 +42,12 @@ class LinuxAgent implements Agent {
     return $stats;
   }
 
+  /**
+   * Get current disk usage
+   * PARTITIONS parameter should be colon (:) seperated 
+   *
+   * @return Array
+   */
   public function Disk(){
     if(!isset($_ENV['PARTITIONS'])){
       return [];
@@ -52,6 +63,11 @@ class LinuxAgent implements Agent {
     return $usage;
   }
 
+  /**
+   * Get service count. This function check how many instances of given service is running at the moment
+   *
+   * @return Array
+   */
   public function Services(){
     if(!isset($_ENV['SERVICES'])){
       return [];
@@ -65,6 +81,11 @@ class LinuxAgent implements Agent {
     return $stats;
   }
 
+  /**
+   * This function is used to get all stats at once.
+   *
+   * @return Array
+   */
   public function getStats(){
     return [
       'cpu' => $this->CPU(),

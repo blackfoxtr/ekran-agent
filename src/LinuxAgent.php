@@ -22,8 +22,8 @@ class LinuxAgent implements Agent {
 
     return [
       'load' => explode(',', explode('load average:', $load[0])[1]),
-      'uptime' => $load[0],
-      'upsince' => $load[0],
+      'uptime' => $uptime[0],
+      'upsince' => $upsince[0],
     ];
   }
 
